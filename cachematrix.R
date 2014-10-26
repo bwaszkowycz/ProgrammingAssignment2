@@ -2,14 +2,14 @@
 ## or retrieves the inverse from cache if already stored  
 ## 
 
-## makeCacheMatrix generates a list of functions to handle definition (set*)
+## makeCacheMatrix generates a list of functions to handle initialization (set*)
 ## and retrieval (get*) of a matrix and its inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-        m <- NULL                # initialise variable to store matrix_inverse
+        m <- NULL                # initialize variable that will store matrix_inverse
         set <- function(y) {     
-                x <<- y          # assign to parent environment using <<- operator
-                m <<- NULL       # reset inverse to NULL on calling set()
+                x <<- y          # assign to containing environment using <<- operator
+                m <<- NULL       # reset to NULL on calling set()
         }
         get <- function() x      # retrieves matrix
         setInverse <- function(matrix_inverse) m <<- matrix_inverse # assigns inverse
@@ -33,6 +33,6 @@ cacheSolve <- function(x, ...) {
         }
         matrix <- x$get()          # else retrieve matrix and solve for inverse
         m <- solve(matrix, ...)
-        x$setInverse(m)            # save inverse in parent environment 
+        x$setInverse(m)            # save inverse in containing environment 
         m
 }
